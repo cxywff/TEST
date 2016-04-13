@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * @author DongYi
  * @version 创建时间：2016年4月11日 下午5:02:35
- * @description 类说明
+ * @description 获取xml文件、类文件字符串
  */
 public class GetString {
 	static String head="<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n" +
@@ -18,22 +18,26 @@ public class GetString {
 	
 	/**
 	 * @param tableName 表名
-	 * @param voName 实体名
+	 * @param clazzName 实体名
+	 * @param packageName 包名
 	 * @return 得到表示实体类的字符串
 	 */
-	public static String creat(String tableName,String voName){
+	public static String creat(String tableName,String clazzName,String packageName){
+		if(packageName==null){
+			packageName="com.hyst.vo";
+		}
+		packageName="package "+packageName+";/n";
 		String str="";
 		String clazz="";
 		try {
 			Map map=GetTableInfo.getTableInfo(tableName);
 			//包名
-			String pa="package com.hyst.vo."+voName.substring(0,voName.lastIndexOf("."))+";\n";
 			String s="	public void set";
 			String set="";
 			String imp="";//引包
 			String val="";
 			String get="";
-			str+="public class "+voName.substring(voName.indexOf(".")+1,voName.length())+"{\n";
+			str+="public class "+clazzName.substring(clazzName.indexOf(".")+1,clazzName.length())+"{\n";
 			for (int i = 0; i < map.size(); i++) {
 				Map<String ,String> m=(Map) map.get(i);
 				String im= m.get("packageName");
@@ -43,43 +47,62 @@ public class GetString {
 				String name=m.get("collName");
 				String type=m.get("type");
 				//拼接属性
-				val+="	/** */\n	private "+type+" "+m.get("collName")+";\n";
+				val+="	/**属性描述： */\n	private "+type+" "+m.get("collName")+";\n";
 				String v=name.substring(0,1).toUpperCase()+name.substring(1,name.length());
 				get+="	public "+type+" get"+v+"(){\n		return this."+name+";\n	}\n";
 				set+=s+v+"("+type+" "+name+"){\n		this."+name+" = "+name+";\n	}\n";
 			}
-			clazz=pa+imp+str+val+get+set+"}";
+			clazz=packageName+imp+str+val+get+set+"}";
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		return clazz;
 	}
-
+	/**
+	 * @param tableName 表名
+	 * @param clazzName 实体名
+	 * @return 得到表示实体类的字符串
+	 */
+	public static String creat(String tableName,String clazzName){
+		return creat(tableName,clazzName,null);
+	}
 	/**
 	 * 获取mapper.xml字符串
 	 * @param tableName 表名
-	 * @param voName 实体类名称
+	 * @param clazzName 实体类名称
 	 * @return 字符串表示的mapper.xml文件
 	 */
-	public static String creatXml(String tableName,String voName){
+	public static String creatXml(String tableName,String clazzName){
+		return creatXml(tableName, clazzName, null);
+	}
+	/**
+	 * 获取mapper.xml字符串
+	 * @param tableName 表名
+	 * @param clazzName 实体类名称
+	 * @return 字符串表示的mapper.xml文件
+	 */
+	public static String creatXml(String tableName,String clazzName,String packageName){
 		try {
-			
+			if (packageName==null||packageName.length()==0) {
+				packageName="com.hyst.vo";
+			}
+			String vo=packageName+"."+clazzName;
 			Map map=GetTableInfo.getTableInfo(tableName);
 			System.err.println("表信息： \t"+map);
-			String mapper="<mapper namespace=\"com.hyst.dao."+voName+"Dao\" >\n"+"\n sqls$$$ \n"+"</mapper>\n";
-			String result="	 <resultMap type=\""+voName+"\" id=\""+voName.toLowerCase().substring(voName.lastIndexOf(".")+1,voName.length())+"\" >\n";
-			String insert="	<!-- 单个增加 -->\n	<insert id=\"insert\" parameterType=\"com.hyst.vo."+voName+"\">\n"+
+			String mapper="<mapper namespace=\""+vo+"Dao\" >\n"+"\n sqls$$$ \n"+"</mapper>\n";
+			String result="	 <resultMap type=\""+clazzName+"\" id=\""+GetTableInfo.headLower(clazzName)+"\" >\n";
+			String insert="	<!-- 单个增加 -->\n	<insert id=\"insert\" parameterType=\""+vo+"\">\n"+
 					"		insert into "+ tableName ;
 			String sql=" (";
 			String sql0=" values (";
-			String select="	<select id=\"getOne\" resultType=\"com.hyst.vo."+voName+"\">\n"+
+			String select="	<select id=\"getOne\" resultType=\""+vo+"\">\n"+
 					"		select * from "+tableName+" where $$$ \n"+"	</select>\n";
-			String update="	<update id=\"update\" parameterMap=\"com.hyst.vo."+voName+"\">\n" +
+			String update="	<update id=\"update\" parameterType=\""+vo+"\">\n" +
 					"		update "+tableName+" set $$$ 		where $$$ \n	</update>\n";
-					
-			String delete="	<delete id=\"delete\" parameterType=\"com.hyst.vo."+voName+"\">\n" +
-					"		delete from user where $$$ \n	</delete>\n";
+
+			String delete="	<delete id=\"delete\" parameterType=\""+vo+"\">\n" +
+					"		delete from "+tableName+" where $$$ \n	</delete>\n";
 			String wher=" where ";		//主键条件语句
 			//动态条件语句
 			String dynamic="		<where>\n";
@@ -110,7 +133,7 @@ public class GetString {
 					sql0+="#{"+colum+"})\n";
 				}
 			}
-			result+="	</resultMap>\n";
+			result+="	</resultMap>\n\n";
 			dynamic+="		</where>";
 			setDynamic+= "		</set>\n";
 			
@@ -127,7 +150,6 @@ public class GetString {
 			//查询所有
 			String list="	<!-- 查询所有 -->\n"+select.replace("where $$$", "").replace("getOne", "list");
 			
-			
 			result+=delete+insert+up+byId +byOrder;
 			String sqls=result;
 			//返回拼接完成的xml字符串
@@ -140,13 +162,18 @@ public class GetString {
 	/**
 	 * 
 	 * @param tableName
-	 * @param voName
+	 * @param clazzName
 	 * @return 表示Dao文件的字符串；
 	 */
-	public static String getDaoFile(String tableName,String voName){
+	public static String getDaoFile(String tableName,String clazzName){
 		
 		return null;
 		
 	}
-
+	
+	public static String daoString(String tableName,String clazzName){
+		
+		
+		return null;
+	}
 }
