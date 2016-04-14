@@ -159,21 +159,30 @@ public class GetString {
 		}
 		return null;
 	}
+
 	/**
-	 * 
-	 * @param tableName
-	 * @param clazzName
-	 * @return 表示Dao文件的字符串；
+	 * 表示Dao接口文件字符串;
+	 * @param intefaceName dao接口名;
+	 * @param packageName	包名;
+	 * @return 表示Dao接口文件的字符串;
 	 */
-	public static String getDaoFile(String tableName,String clazzName){
+	public static String daoString(String intefaceName,String packageName){
+		packageName="package "+packageName+";\n\n";
+		String impot="import org.springframework.stereotype.Repository;\nimport com.hyst.dao.BaseDao;\n\n";
+		String message="/**\n * @author \n * @version 创建时间：\n * @类说明\n */\n" +
+				"@Repository(\"infoEquipInfo_ViewDao\")";
+		intefaceName="public interface "+intefaceName+" extends BaseDao {\n}";
 		
-		return null;
-		
+		return packageName+impot+message+intefaceName;
 	}
-	
-	public static String daoString(String tableName,String clazzName){
-		
-		
+	/**
+	 * service层字符串--停用
+	 * @param clazzName 类名
+	 * @param packageName 包名
+	 * @return 表示service层的字符串
+	 * @deprecated 已停用，返回null
+	 */
+	public static String serviceString(String clazzName,String packageName){
 		return null;
 	}
 }
