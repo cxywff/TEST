@@ -1,6 +1,6 @@
 package com.hyst.vo;
 public class InfoEquipInfo_View{
-	/** */
+	/** 属性描述： */
 	private int id;
 	/** */
 	private String orgId;

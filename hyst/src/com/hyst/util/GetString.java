@@ -11,7 +11,7 @@ import java.util.Map;
  * @description 获取xml文件、类文件字符串
  */
 public class GetString {
-	static String head="<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n" +
+	private static String head="<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n" +
 			"<!DOCTYPE mapper \n" +
 			"    PUBLIC \"-//mybatis.org//DTDMapper 3.0//EN\" \n" +
 			"    \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\"> \n";
