@@ -30,7 +30,7 @@ public class InfoEquipInfo_ViewServiceImpl implements InfoEquipInfo_ViewService{
 	
 	@Override
 	public List<InfoEquipInfo_View> getList() {
-		Map map=new HashMap();
+		Map<String, Integer> map=new HashMap<String, Integer>();
 		map.put("isDelete", 0);
 		return infoEquipInfo_ViewDao.list(map);
 	}

@@ -3,6 +3,7 @@ package com.hyst.dao.info;
 import org.springframework.stereotype.Repository;
 
 import com.hyst.dao.BaseDao;
+import com.hyst.vo.InfoEquipInfo_View;
 
 /**
  * @author DongYi
@@ -10,6 +11,6 @@ import com.hyst.dao.BaseDao;
  * 类说明
  */
 @Repository("infoEquipInfo_ViewDao")
-public interface InfoEquipInfo_ViewDao extends BaseDao {
+public interface InfoEquipInfo_ViewDao extends BaseDao<InfoEquipInfo_View> {
 
 }

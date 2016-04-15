@@ -13,12 +13,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 public class EncodingFilter implements Filter{
 	String encoding="utf-8";
+	@Override
 	public void destroy() {
 	}
+	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		encoding = filterConfig.getInitParameter("encoding");
 		System.err.println("初始化中的encoding\t"+encoding);
 	}
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		if(encoding==null||"".equals(encoding)){

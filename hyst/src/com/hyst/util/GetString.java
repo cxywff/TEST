@@ -1,7 +1,5 @@
 package com.hyst.util;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -30,7 +28,7 @@ public class GetString {
 		String str="";
 		String clazz="";
 		try {
-			Map map=GetTableInfo.getTableInfo(tableName);
+			Map<Integer, Map<String, String>> map=GetTableInfo.getTableInfo(tableName);
 			//包名
 			String s="	public void set";
 			String set="";
@@ -39,7 +37,7 @@ public class GetString {
 			String get="";
 			str+="public class "+clazzName.substring(clazzName.indexOf(".")+1,clazzName.length())+"{\n";
 			for (int i = 0; i < map.size(); i++) {
-				Map<String ,String> m=(Map) map.get(i);
+				Map<String ,String> m= map.get(i);
 				String im= m.get("packageName");
 				if ( im.length()>0) {//拼接导入的类
 					imp+="import "+im+";/n";
@@ -88,7 +86,7 @@ public class GetString {
 				packageName="com.hyst.vo";
 			}
 			String vo=packageName+"."+clazzName;
-			Map map=GetTableInfo.getTableInfo(tableName);
+			Map<Integer, Map<String, String>> map=GetTableInfo.getTableInfo(tableName);
 			System.err.println("表信息： \t"+map);
 			String mapper="<mapper namespace=\""+vo+"Dao\" >\n"+"\n sqls$$$ \n"+"</mapper>\n";
 			String result="	 <resultMap type=\""+clazzName+"\" id=\""+GetTableInfo.headLower(clazzName)+"\" >\n";
@@ -109,7 +107,7 @@ public class GetString {
 			String setDynamic="\n		<set>\n";
 					
 			for (int i = 0; i < map.size(); i++) {
-				Map<String ,String> map0=(Map) map.get(i);
+				Map<String ,String> map0= map.get(i);
 				String colum=map0.get("collName");
 				String defString=map0.get("defaultValue");
 						
@@ -150,8 +148,8 @@ public class GetString {
 			//查询所有
 			String list="	<!-- 查询所有 -->\n"+select.replace("where $$$", "").replace("getOne", "list");
 			
-			result+=delete+insert+up+byId +byOrder;
-			String sqls=result;
+			result+=delete+insert+up+byId +byOrder+list;
+//			String sqls=result;
 			//返回拼接完成的xml字符串
 			return head+mapper.replace("sqls$$$", result);
 		} catch (SQLException e) {
@@ -182,6 +180,7 @@ public class GetString {
 	 * @return 表示service层的字符串
 	 * @deprecated 已停用，返回null
 	 */
+	@Deprecated
 	public static String serviceString(String clazzName,String packageName){
 		return null;
 	}

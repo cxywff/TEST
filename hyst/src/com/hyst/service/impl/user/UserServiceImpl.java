@@ -3,14 +3,10 @@ package com.hyst.service.impl.user;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
-
 import com.hyst.dao.user.UserDao;
 import com.hyst.service.user.UserService;
 import com.hyst.vo.user.User;
@@ -30,7 +26,7 @@ public class UserServiceImpl implements UserService{
 	}
 	@Override
 	public List<User> list(int id,int id2) {
-		Map map=new HashMap();
+		Map<String, Integer> map=new HashMap<String, Integer>();
 		id=id < 0 ? 0:id;
 		id2=id2 >id?id2:Integer.MAX_VALUE;
 		
@@ -40,8 +36,9 @@ public class UserServiceImpl implements UserService{
 		List<User> list=userDao.list(map);
 		return list;
 	}
+	@Override
 	public User getOne(int id){
-		return  (User) userDao.getOne(id);
+		return   userDao.getOne(id);
 	}
 	@Override
 	public String add(User user) {
@@ -53,15 +50,14 @@ public class UserServiceImpl implements UserService{
 			return"false";
 		}
 	}
+	@Override
 	public User selectByTerms(User u){
 		return userDao.select2(u);
 	}
-	/* (non-Javadoc)
-	 * @see com.hyst.service.user.UserService#login(com.hyst.vo.User.User)
-	 */
 	/**
 	 * 登录判断
 	 */
+	@Override
 	public String login(User u,HttpSession session,HttpServletRequest req) {
 		User user=userDao.select2(u);
 		session.setMaxInactiveInterval(7);
@@ -73,7 +69,6 @@ public class UserServiceImpl implements UserService{
 		System.out.println("登录状态:失败！");
 		req.setAttribute("msg", "账号或密码错误");
 		return "forward:/login.jsp";
-//		return "login.jsp";
 	}
 
 }

@@ -24,6 +24,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 	/**
 	 * 在DispatcherServlet处理后执行-----清理工作
 	 */
+	@Override
 	public void afterCompletion(HttpServletRequest req,
 			HttpServletResponse rsp, Object arg2, Exception arg3)
 			throws Exception {
@@ -31,6 +32,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 	}
 
 	//在请求处理的方法执行之后执行
+	@Override
 	public void postHandle(HttpServletRequest req, HttpServletResponse rsp,
 			Object handler, ModelAndView mdv) throws Exception {
 		// TODO Auto-generated method stub
@@ -38,6 +40,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 	}
 
 	//在请求处理的方法之前执行
+	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse rsp,
 			Object handler) throws Exception {
 		User user=(User) req.getSession().getAttribute("user");

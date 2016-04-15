@@ -1,8 +1,8 @@
 package com.hyst.filter;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 
 public class LogFilter implements Filter{
@@ -31,7 +32,7 @@ public class LogFilter implements Filter{
 		string="{\"路径\":\""+string;
 		StringBuffer sBuffer=new StringBuffer();
 		sBuffer.append(string+"\",\"参数\":[{");
-		for(Enumeration e=names;e.hasMoreElements();){ 
+		for(Enumeration<String> e=names;e.hasMoreElements();){ 
 				//参数名
 		       String thisName=e.nextElement().toString();
 		       //参数值

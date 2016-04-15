@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.Writer;
 
 /**
  *  文件生成工具类 （字符流）
@@ -58,10 +57,9 @@ public class OutPut {
 	/**
 	* 写文件
 	* @param context 内容
-	* @param path	  路径
+	* @param file	  路径
 	*/
 	public static void out(String context,File file){
-			Writer writer=null;
 			BufferedWriter bw=null;
 			try {
 				bw=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file),"UTF-8"));
