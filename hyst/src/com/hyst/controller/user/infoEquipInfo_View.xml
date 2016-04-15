@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?> 
+<!-- DTD声明始终以!DOCTYPE开头,空一格后跟着文档根元素的名称,如果是内部DTD,则再空一格出现[],
+在中括号中是文档类型定义的内容. 而对于外部DTD,则又分为私有DTD与公共DTD,私有DTD
+使用SYSTEM表示,接着是外部DTD的URL. 而公共DTD则使用PUBLIC,接着是DTD公共名称,接着是DTD的URL -->
 <!DOCTYPE mapper 
     PUBLIC "-//mybatis.org//DTDMapper 3.0//EN" 
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 

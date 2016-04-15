@@ -15,16 +15,23 @@ import java.io.Writer;
 public class OutPut {
 	
 	/**
-	 * @description 根据表名生成 自定义实体类及对应mapper.xml、service、Dao文件
-	 * @param voName 模型名称
+	 *  @description 根据表名生成 自定义实体类及对应mapper.xml、service、Dao文件
 	 * @param tableName 表名
+	 * @param packageName 实体类的包名
+	 * @param clazzName 类名
 	 */
-	public static void creatFile(String voName,String tableName){
-		String xml=GetString.creatXml(tableName, voName);
-		String vo=GetString.creat(tableName, voName);
-		String path=System.getProperty("user.dir").replace("\\", "/");;
-		String javapath=path+"/src/com/hyst/vo/"+voName.substring(voName.lastIndexOf(".")+1,voName.length())+".java";
-		String xmlpath=path+"/src/com/hyst/config/mapper/"+voName.substring(voName.lastIndexOf(".")+1,voName.length())+".mapper.xml";
+	public static void creatFile(String tableName,String packageName,String clazzName){
+		if (packageName==null||packageName.length()==0) {
+			packageName="com.hyst.vo";
+		}
+		String xml=GetString.creatXml(tableName, clazzName, packageName);
+		String clazz=GetString.creat(tableName, clazzName, packageName);
+		String pack="/src/"+packageName.replace(".", "/")+"/";
+		String path=System.getProperty("user.dir").replace("\\", "/");
+		String javapath=path+pack+clazzName+".java";
+		String xmlpath=path+pack.replace("vo", "/config/mapper/")+clazzName.toLowerCase()+".mapper.xml";
+		System.out.println("类文件路径为\t"+javapath);
+		System.out.println("映射文件路径为\t"+xmlpath);
 		File xmlfile=new File(xmlpath);
 		File jaFile=new File(javapath);
 		System.out.println(xmlpath+"\n"+javapath);
@@ -43,16 +50,16 @@ public class OutPut {
 			}
 		}
 		OutPut.out(xml, xmlfile);
-		OutPut.out(vo, jaFile);
+		OutPut.out(clazz, jaFile);
 	}
 	
 	
 	
-		/**
-		 * 写文件
-		 * @param context 内容
-		 * @param path	  路径
-		 */
+	/**
+	* 写文件
+	* @param context 内容
+	* @param path	  路径
+	*/
 	public static void out(String context,File file){
 			Writer writer=null;
 			BufferedWriter bw=null;

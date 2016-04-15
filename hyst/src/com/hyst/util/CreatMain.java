@@ -9,6 +9,6 @@ import java.util.Map;
  */
 public class CreatMain {
 	public static void main(String[] args) {
-		OutPut.creatFile("info.InfoEquipInfo_View","InfoEquipInfo_View");
+		OutPut.creatFile("InturnEquipInfoWithProperty_View",null,"InturnEquipInfoWithPropertyView");
 	}
 }

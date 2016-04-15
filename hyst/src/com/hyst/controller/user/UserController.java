@@ -72,20 +72,6 @@ public class UserController {
 
 
 
-//quartz-1.8.5.jar
-//commons-logging.jar
-//spring-core-3.0.5.RELEASE.jar
-//spring-beans-3.0.5.RELEASE.jar
-//spring-context-3.0.5.RELEASE.jar
-//spring-context-support-3.0.5.RELEASE.jar
-//spring-asm-3.0.5.RELEASE.jar
-//spring-expression-3.0.5.RELEASE.jar
-//spring.transaction-3.0.5.RELEASE.jar
-//spring-web-3.0.5.RELEASE.jar
-
-
-
-
 
 
 

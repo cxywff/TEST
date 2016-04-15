@@ -26,7 +26,7 @@ public class GetString {
 		if(packageName==null){
 			packageName="com.hyst.vo";
 		}
-		packageName="package "+packageName+";/n";
+		packageName="package "+packageName+";\n";
 		String str="";
 		String clazz="";
 		try {
