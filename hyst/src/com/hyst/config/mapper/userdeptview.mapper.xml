@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTDMapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.hyst.dao.safe.UserDeptViewDao" >
+
+ 	 <resultMap type="com.hyst.vo.UserDeptView" id="userDeptView" >
+		<id column="uid" property="uid"/>
+		<result column="uname" property="uname"/>
+		<result column="sex" property="sex"/>
+		<result column="post" property="post"/>
+		<result column="did" property="did"/>
+		<result column="dname" property="dname"/>
+	</resultMap>
+
+	<!-- 根据ID删除 -->
+	<delete id="delete" parameterType="com.hyst.vo.UserDeptView">
+		delete from userDeptView  where uid=#{uid} 
+	</delete>
+	<!-- 单个增加 -->
+	<insert id="insert" parameterType="com.hyst.vo.UserDeptView">
+		insert into userDeptView (uname,sex,post,did,dname) values (#{uname},#{sex},#{post},#{did},#{dname})
+	</insert>
+	<!-- 动态根据ID更新 -->
+	<update id="update" parameterType="com.hyst.vo.UserDeptView">
+		update userDeptView 
+		<set>
+		<if test="uname != null">
+			uname=#{uname},
+		</if>
+		<if test="sex != null">
+			sex=#{sex},
+		</if>
+		<if test="post != null">
+			post=#{post},
+		</if>
+		<if test="did != 0">
+			did=#{did},
+		</if>
+		<if test="dname != null">
+			dname=#{dname},
+		</if>
+		</set>
+ 		 where uid=#{uid} 
+	</update>
+	<!-- 查询单个 -->
+	<select id="getOne" resultType="com.hyst.vo.UserDeptView">
+		select * from userDeptView  where uid=#{uid} 
+	</select>
+	<!-- 动态查询 -->
+	<select id="byOrder" resultType="com.hyst.vo.UserDeptView">
+		select * from userDeptView 
+		<where>
+			<if test=" uname != null ">
+			  and uname=#{uname}
+			</if>
+			<if test=" sex != null ">
+			  and sex=#{sex}
+			</if>
+			<if test=" post != null ">
+			  and post=#{post}
+			</if>
+			<if test=" did != 0 ">
+			  and did=#{did}
+			</if>
+			<if test=" dname != null ">
+			  and dname=#{dname}
+			</if>
+		</where> 
+	</select>
+	<!-- 查询所有 -->
+	<select id="list" parameterType="java.util.Map" resultType="com.hyst.vo.UserDeptView">
+		select * from userDeptView  
+	</select>
+ 
+</mapper>

@@ -7,6 +7,6 @@ package com.hyst.util;
  */
 public class CreatMain {
 	public static void main(String[] args) {
-		OutPut.creatFile("InturnEquipInfoWithProperty_View",null,"InturnEquipInfoWithPropertyView");
+		OutPut.creatFile("tableOper",null,"TableOper");
 	}
 }

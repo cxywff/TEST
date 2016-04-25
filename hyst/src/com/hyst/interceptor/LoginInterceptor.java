@@ -45,7 +45,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			Object handler) throws Exception {
 		User user=(User) req.getSession().getAttribute("user");
 		String url=req.getRequestURL().toString();
-
+		System.out.println("请求资源为：\t"+url);
 		if (user!=null) {//如果已登录
 			return true;
 		}

@@ -16,7 +16,7 @@
 <!-- 	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
 	    结果视图的前缀/配置后JSP文件路径=value+JSP文件名.jsp
-	    <property name="prefix" value="/WEB-INF/jsp/"/>
+	    <property name="prefix" value="/WEB-INF/view/"/>
 	    结果视图的后缀
 	    <property name="suffix" value=".jsp"/>
 	</bean> -->
@@ -42,9 +42,9 @@
 	</bean>
 	<!-- 扫描该包下的controller注解 -->
 	<context:component-scan base-package="com.hyst.controller"/>
-	<!-- ======================配置拦截器================================= -->
+	<!-- ======================配置拦截器登录拦截器================================= -->
 	<!-- 拦截器的配置 -->
-<!-- 	<mvc:interceptors>
+ 	<!-- <mvc:interceptors>
 		<mvc:interceptor>
 			/** 包括路径及其子路径    -拦截所有controller
 			<mvc:mapping path="/**"/>
@@ -58,7 +58,7 @@
 				</property>
 			</bean>
 		</mvc:interceptor>
-	</mvc:interceptors> -->
+	</mvc:interceptors>  -->
 	
 	
 	

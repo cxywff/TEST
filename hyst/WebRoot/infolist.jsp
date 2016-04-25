@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	/demo2/WebRoot/js/jquery.js-->
-	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="/js/jquery.js"></script>
 	<script type="text/javascript" src="js/jquery.json.js"></script>
 	<script type="text/javascript">
 		alert(${list });
@@ -45,9 +45,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td name="">备注</td>
 			</tr>
   		</tr>
-  		<c:forEach items="${list }" var="bean">
+  		<c:forEach items="${list }" var="bean"  varStatus="status">
   			<tr>
-  				<td><label><input type="checkbox" id="select">选择</label></td>
+  				<td><label><input type="checkbox" id="select">选择 ${status.index}</label></td>
   				
 				<td name="1">${bean.orgName }</td>
 				<td name="2">${bean.staffName }</td>

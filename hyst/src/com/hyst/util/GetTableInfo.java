@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import com.mysql.jdbc.Statement;
+
 /**
  * 映射数据库表生成VO类
  * @author DongYi
@@ -30,6 +32,8 @@ public class GetTableInfo {
 	public static Connection getConnection(){
 		try {
 			Properties prop=new Properties();
+			//新增
+			prop.put("remarksReporting","true");
 			//读取数据库配置文件
 		    InputStream in = Object.class.getResourceAsStream("/com/hyst/config/db.properties");  
 			prop.load(in);
@@ -37,8 +41,8 @@ public class GetTableInfo {
 			String url=prop.getProperty("url");
 			//加载数据库驱动
 		    Class.forName(prop.getProperty("driver"));
-		    //获得数据库连接prop.getProperty("username")+
-			return DriverManager.getConnection(url,prop.getProperty("username"),prop.getProperty("password"));
+		    //获得数据库连接  prop也可换成prop.getProperty("username"),prop.getProperty("password")
+			return DriverManager.getConnection(url,prop);
 		} catch (ClassNotFoundException e) {
 			
 			e.printStackTrace();
@@ -49,6 +53,35 @@ public class GetTableInfo {
 		}
 		System.err.println("数据库连接失败");
 		return null;
+	}
+	
+	public static void main(String[] args) {
+		Connection connection =getConnection();
+//		pstmt = (PreparedStatement) connection.prepareStatement(sql);
+		//Statement statement=(Statement) connection.createStatement();
+		String 
+		sql="INSERT INTO [test].[dbo].[tableOper] ([id], [tableId], [operTypeId]) \n" +
+				"VALUES (";
+		
+		int j=1;
+		for (int i = 8; i < 111; i++) {
+			for (int k = 1; k < 5; k++) {
+				sql+=j+","+i+","+k+")";
+				j++;
+				 try {
+					 System.out.println(sql);
+					getConnection().createStatement().executeQuery(sql);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				//statement.execute(sql);
+				 sql="INSERT INTO [test].[dbo].[tableOper] ([id], [tableId], [operTypeId]) \n" +
+							"VALUES (";
+			}
+			
+		}
+		
 	}
 	/**
 	 * 获取表信息
@@ -61,13 +94,18 @@ public class GetTableInfo {
 		 Connection con=getConnection();
 		 //取得所有列的集合
 		 ResultSet columnSet = con.getMetaData().getColumns(null, null, tableName, null);
-		// DatabaseMetaData a=con.getMetaData();
+		
+		 
 		 int i=0;
 		 Map<Integer, Map<String, String>> map=new HashMap<Integer, Map<String, String>>();
 		 while(columnSet.next()){
+			 
 			 Map<String, String> m2=new HashMap<String, String>();
 			 	//取得列名
 			 	String collname=headLower(columnSet.getString(4));
+			 	//取得列上面的注释
+			 	String annotate=columnSet.getString("REMARKS");  //headLower(columnSet.getString(12));
+			 	System.err.println("列名："+collname+"\t注释："+annotate);
 			 	//取得sql数据库数据类型
 			 	String co=columnSet.getString(6);
 			 	//System.err.println(columnSet.getString(6));

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTDMapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.hyst.vo.OperTypeDao" >
+
+ 	 <resultMap type="OperType" id="operType" >
+		<id column="id" property="id"/>
+		<result column="operTypeName" property="operTypeName"/>
+	</resultMap>
+
+	<!-- 根据ID删除 -->
+	<delete id="delete" parameterType="com.hyst.vo.OperType">
+		delete from operType  where id=#{id} 
+	</delete>
+	<!-- 单个增加 -->
+	<insert id="insert" parameterType="com.hyst.vo.OperType">
+		insert into operType (operTypeName) values (#{operTypeName})
+	</insert>
+	<!-- 动态根据ID更新 -->
+	<update id="update" parameterType="com.hyst.vo.OperType">
+		update operType 
+		<set>
+		<if test="operTypeName != null">
+			operTypeName=#{operTypeName},
+		</if>
+		</set>
+ 		 where id=#{id} 
+	</update>
+	<!-- 查询单个 -->
+	<select id="getOne" resultType="com.hyst.vo.OperType">
+		select * from operType  where id=#{id} 
+	</select>
+	<!-- 动态查询 -->
+	<select id="byOrder" resultType="com.hyst.vo.OperType">
+		select * from operType 
+		<where>
+			<if test=" operTypeName != null ">
+			  and operTypeName=#{operTypeName}
+			</if>
+		</where> 
+	</select>
+	<!-- 查询所有 -->
+	<select id="list" resultType="com.hyst.vo.OperType">
+		select * from operType  
+	</select>
+ 
+</mapper>
