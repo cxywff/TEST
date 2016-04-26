@@ -55,34 +55,7 @@ public class GetTableInfo {
 		return null;
 	}
 	
-	public static void main(String[] args) {
-		Connection connection =getConnection();
-//		pstmt = (PreparedStatement) connection.prepareStatement(sql);
-		//Statement statement=(Statement) connection.createStatement();
-		String 
-		sql="INSERT INTO [test].[dbo].[tableOper] ([id], [tableId], [operTypeId]) \n" +
-				"VALUES (";
-		
-		int j=1;
-		for (int i = 8; i < 111; i++) {
-			for (int k = 1; k < 5; k++) {
-				sql+=j+","+i+","+k+")";
-				j++;
-				 try {
-					 System.out.println(sql);
-					getConnection().createStatement().executeQuery(sql);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
-				//statement.execute(sql);
-				 sql="INSERT INTO [test].[dbo].[tableOper] ([id], [tableId], [operTypeId]) \n" +
-							"VALUES (";
-			}
-			
-		}
-		
-	}
+
 	/**
 	 * 获取表信息
 	 * @param connection 

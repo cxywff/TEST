@@ -17,21 +17,11 @@
 		
 	</resultMap>
 	
-		<resultMap type="com.hyst.vo.TableInfo" id="tableInfo2" >
-		<id column="id" property="id"/>
-		<result column="tableName" property="tableName"/>
-		<result column="tableNameChs" property="tableNameChs"/>
-		<result column="isDelete" property="isDelete"/>
-		<result column="sort" property="sort"/>
-		<result column="parentId" property="parentId"/>
-		<result column="doMain" property="doMain"/>
-		</resultMap>
+
 	
 	<!-- 查询所有 -->
-	<select id="list"  parameterType="java.util.Map" resultMap="tableInfo">
-		select t.id,t.tableName,list.* from tableInfo t
-			left join tableInfo list on t.id=list.parentId 
-			where t.parentId=0
+	<select id="list"  parameterType="java.util.Map" resultType="tableInfo">
+		select t.id,t.tableName,list.* from tableInfo 
 	</select>
 	<!-- 根据父ID查询所有 -->
 	<select id="listByParentId"  parameterType="java.util.Map" resultType="tableInfo">

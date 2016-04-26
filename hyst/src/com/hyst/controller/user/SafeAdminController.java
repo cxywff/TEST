@@ -41,7 +41,6 @@ public class SafeAdminController {
 	}
 	@RequestMapping("main")
 	public String main(){
-//		/hyst/WebRoot/WEB-INF/view/safe/模板.jsp
 		tableInfoService.creatMenu();
 		return "/WEB-INF/view/safe/index.jsp";
 	}
@@ -80,10 +79,10 @@ public class SafeAdminController {
 	 * 请求用户组列表
 	 * @return
 	 */
-	@RequestMapping("userGroupAjax")
+/*	@RequestMapping("userGroupAjax")
 	@ResponseBody
 	public List<UserGroup> getUserGroups(){
 		
 		return safeService.getUserGroups(0, 0);
-	}
+	}*/
 }
