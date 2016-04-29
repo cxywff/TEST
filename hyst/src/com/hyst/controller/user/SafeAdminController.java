@@ -1,19 +1,16 @@
 package com.hyst.controller.user;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.hyst.service.safe.SafeService;
 import com.hyst.service.safe.TableInfoService;
 import com.hyst.service.safe.UserDeptViewService;
 import com.hyst.vo.TableInfo;
 import com.hyst.vo.UserDeptView;
-import com.hyst.vo.UserGroup;
 
 /**
  * @author DongYi
